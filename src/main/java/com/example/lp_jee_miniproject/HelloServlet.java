@@ -1,7 +1,10 @@
 package com.example.lp_jee_miniproject;
 
 import java.io.*;
+import java.sql.SQLException;
 
+import Models.User;
+import Services.UserService;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
@@ -11,16 +14,23 @@ public class HelloServlet extends HttpServlet {
 
     public void init() {
         message = "Hello World!";
+
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
+        UserService service = new UserService();
+        try {
+            User user = service.UserLogin("fatima@example.com","password456");
+            // Hello
+            PrintWriter out = response.getWriter();
+            out.println("<html><body>");
+            out.println("<h1>Hello"+user.getUsername()+"</h1>");
+            out.println("</body></html>");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>" + message + "</h1>");
-        out.println("</body></html>");
     }
 
     public void destroy() {
