@@ -4,6 +4,7 @@ import java.io.*;
 import java.sql.SQLException;
 
 import Models.User;
+import Services.SimulationCreditService;
 import Services.UserService;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -19,19 +20,18 @@ public class HelloServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        UserService service = new UserService();
-        try {
-            User user = service.UserLogin("fatima@example.com","password456");
-            boolean bienajouter= service.UserInsert("Rida","rida@gmail.com","passwordrida");
-            String msg = bienajouter==true?"Bien été ajouter":"Error dans l'insertion";
+        SimulationCreditService service = new SimulationCreditService();
+
+           // User user = service.UserLogin("fatima@example.com","password456");
+            //boolean bienajouter= service.UserInsert("Rida","rida@gmail.com","passwordrida");
+            int msg = service.CalculeSimulation(100000,4,7);
+            String msgg = Integer.toString(msg);
             // Hello
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
-            out.println("<h1>Hello"+msg+"</h1>");
+            out.println("<h1>Hello"+msgg+"</h1>");
             out.println("</body></html>");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
 
