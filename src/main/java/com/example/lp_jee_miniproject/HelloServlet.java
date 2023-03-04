@@ -22,10 +22,12 @@ public class HelloServlet extends HttpServlet {
         UserService service = new UserService();
         try {
             User user = service.UserLogin("fatima@example.com","password456");
+            boolean bienajouter= service.UserInsert("Rida","rida@gmail.com","passwordrida");
+            String msg = bienajouter==true?"Bien été ajouter":"Error dans l'insertion";
             // Hello
             PrintWriter out = response.getWriter();
             out.println("<html><body>");
-            out.println("<h1>Hello"+user.getUsername()+"</h1>");
+            out.println("<h1>Hello"+msg+"</h1>");
             out.println("</body></html>");
         } catch (SQLException e) {
             throw new RuntimeException(e);

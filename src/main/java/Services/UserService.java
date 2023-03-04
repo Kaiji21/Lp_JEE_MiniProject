@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class UserService {
     final String SQL_LOGIN = "SELECT * FROM `users` WHERE email=? and password=?;";
+    final String SQL_ADD_USER = "INSERT INTO `users`( `username`, `email`, `password`) VALUES (?,?,?);";
 
     public User UserLogin(String email,String password) throws SQLException {
         User user = null;
@@ -29,6 +30,17 @@ public class UserService {
             throw new RuntimeException(e);
         }
         return user;
+    }
+    public boolean UserInsert(String username,String email,String password) throws SQLException {
+        Connection con = Connexion.getConnection();
+        PreparedStatement statement = con.prepareStatement(SQL_ADD_USER);
+        statement.setString(1,username);
+        statement.setString(2,email);
+        statement.setString(3,password);
+        int rowaffected = statement.executeUpdate();
+        boolean isadded = rowaffected>0?true:false;
+
+        return  isadded;
     }
 
 
