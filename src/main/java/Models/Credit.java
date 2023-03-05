@@ -8,7 +8,7 @@ public class Credit {
     private String description;
     private Double montant;
     private int duree;
-    private int taux;
+    private Double taux;
     private String simulation;
     private Date date_creation;
 
@@ -52,11 +52,11 @@ public class Credit {
         this.duree = duree;
     }
 
-    public int getTaux() {
+    public Double getTaux() {
         return taux;
     }
 
-    public void setTaux(int taux) {
+    public void setTaux(Double taux) {
         this.taux = taux;
     }
 
@@ -77,7 +77,7 @@ public class Credit {
     }
     public Credit(){}
 
-    public Credit(int id_credit, String nom, String description, Double montant, int duree, int taux, String simulation, Date date_creation) {
+    public Credit(int id_credit, String nom, String description, Double montant, int duree, Double taux, String simulation, Date date_creation) {
         this.id_credit = id_credit;
         this.nom = nom;
         this.description = description;
