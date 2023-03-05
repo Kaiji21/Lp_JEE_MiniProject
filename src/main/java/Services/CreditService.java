@@ -10,13 +10,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CreditService {
-    final String SQL_GETALLCREDIT = "Select * from credit";
+    final String SQL_GETALLCREDIT = "Select * from credit WHERE iduser =?";
     final String SQL_ADDCREDIT="INSERT INTO `credit`(`Nom`, `Description`, `Montant`, `Duree`, `Taux`, `Simulation`, `iduser`) VALUES (?,?,?,?,?,?,?)";
      public ArrayList<Credit> getallCreditbyuser(int iduser){
          ArrayList<Credit> List = new ArrayList<>();
          Connection con = Connexion.getConnection();
          try {
-             ResultSet resultSet = con.createStatement().executeQuery(SQL_GETALLCREDIT);
+             PreparedStatement preparedStatement = con.prepareStatement(SQL_GETALLCREDIT);
+             preparedStatement.setInt(1,iduser);
+             ResultSet resultSet = preparedStatement.executeQuery();
              while (resultSet.next()){
                  Credit credit = new Credit(resultSet.getInt("idcredit"),resultSet.getString("Nom")
                          ,resultSet.getString("Description"),resultSet.getDouble("Montant")

@@ -51,8 +51,8 @@
             </ul>
         </div>
         <div class="nav-item" style="margin-right: 0;">
-            <a class="- btn btn-primary rounded ml-4" style="width: 110px;" href="components.html">S'identifier</a>
-            <a class="- btn btn-primary rounded ml-4" style="width: 110px;" href="components.html">S'inscrire</a>
+            <a class="- btn btn-primary rounded ml-4" style="width: 110px;" href="Login.jsp">S'identifier</a>
+            <a class="- btn btn-primary rounded ml-4" style="width: 110px;" href="S'inscrire.jsp">S'inscrire</a>
 
         </div>
     </div>

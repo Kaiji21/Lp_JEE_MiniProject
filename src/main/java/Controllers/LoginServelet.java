@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet (name="LoginServelet",urlPatterns= {"/Views/LoginServelet"})
+@WebServlet (name="Login",urlPatterns= {"/Views/LoginServelet"})
 public class LoginServelet extends HttpServlet {
     @Override
     public void init() throws ServletException {
