@@ -146,9 +146,10 @@
 
 <!-- End of Page Header -->
 
-<div class="container">
+<div class="container" style="background-color: #FFFFFF">
     <div style="width: 100%; float: left; display: flex; justify-content: space-around;padding-bottom: 5%;
     padding-top: 5%;
+    background-color: #FFFFFF;
     border: 1px solid #eee;
     border-radius: 3px;
     margin-top: 30px;
