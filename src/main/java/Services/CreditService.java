@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class CreditService {
     final String SQL_GETALLCREDIT = "Select * from credit WHERE iduser =?";
     final String SQL_ADDCREDIT="INSERT INTO `credit`(`Nom`, `Description`, `Montant`, `Duree`, `Taux`, `Simulation`, `iduser`) VALUES (?,?,?,?,?,?,?)";
+    final String SQL_DELETECREDIT = "DELETE FROM `credit` WHERE idcredit=?";
      public ArrayList<Credit> getallCreditbyuser(int iduser){
          ArrayList<Credit> List = new ArrayList<>();
          Connection con = Connexion.getConnection();
@@ -54,5 +55,14 @@ public class CreditService {
          }
          return  isadded;
      };
+     public boolean CreditDelete(int idcredit) throws SQLException {
+         Connection con = Connexion.getConnection();
+         PreparedStatement statement = con.prepareStatement(SQL_DELETECREDIT);
+         statement.setInt(1,idcredit);
+         int rowaffected = statement.executeUpdate();
+         boolean isdeleted = rowaffected>0?true:false;
+         return  isdeleted;
+
+     }
 
 }

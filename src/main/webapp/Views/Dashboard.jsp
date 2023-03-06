@@ -122,7 +122,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #ff7300">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -199,7 +199,7 @@
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
                                aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary" type="button" style="background-color: #f48225;border-color: #f48225">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -256,15 +256,15 @@
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
-                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color: #f48225;border-color: #f48225"><i
                             class="fas fa-download fa-sm text-white-50"></i>Imprimer Rapport</a>
                 </div>
                 <div style="width: 100%; margin-bottom: 30px;">
-                    <div class="card border-left-primary shadow py-2">
+                    <div class="card shadow py-2" style="border-left: 0.25rem solid #f48225!important;">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" style="font-size: 30px;">
+                                    <div class="text-xs font-weight-bold text-uppercase mb-1" style="font-size: 30px; color: #f48225">
                                         Bonjour <span><%= session.getAttribute("Username")%></span>  </div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800" >Bienvenue dans notre outil de simulation de crédit. Calculez rapidement et facilement le coût de différents types de crédit pour trouver la meilleure option pour vous.</div>
                                 </div>
@@ -282,7 +282,7 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Historique des simulations de crédit</h6>
+                        <h6 class="m-0 font-weight-bold " style="color: #f48225">Historique des simulations de crédit</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -310,7 +310,7 @@
                                         <td>${credit.taux}</td>
                                         <td>${credit.simulation}</td>
                                         <td>${credit.date_creation}</td>
-                                        <td style="text-align: center;"> <a href="#myModal" data-toggle="modal" > <img style="height: 20px;" data-id="${credit.id_credit}" src="../assets/imgs/deleteicon.png"> </a></td>
+                                        <td style="text-align: center;"> <a href="#"onclick="displayModal(${credit.id_credit})" data-toggle="modal" > <img style="height: 20px;"  src="../assets/imgs/deleteicon.png"> </a></td>
 
 
 
@@ -358,13 +358,29 @@
 
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-danger" id="deleteCredit" onclick="deleteCredit()">Delete</button>
             </div>
         </div>
     </div>
 </div>
+<script>
+    function displayModal(id) {
+        $('#myModal').modal('show');
+        $('#deleteCredit').data('credit-id', id);
 
-
+    }
+    function deleteCredit() {
+        var creditId = $('#deleteCredit').data('credit-id');
+        $.ajax({
+            type: 'POST',
+            url: 'DeleteCreditServlet',
+            data: {creditId: creditId},
+            success: function() {
+                window.location.reload();
+            }
+        });
+    }
+</script>
 
 
 </body>
