@@ -22,8 +22,8 @@ public class CreditService {
              ResultSet resultSet = preparedStatement.executeQuery();
              while (resultSet.next()){
                  Credit credit = new Credit(resultSet.getInt("idcredit"),resultSet.getString("Nom")
-                         ,resultSet.getString("Description"),resultSet.getDouble("Montant")
-                         ,resultSet.getInt("Duree"), resultSet.getDouble("Taux")
+                         ,resultSet.getString("Description"),resultSet.getInt("Montant")
+                         ,resultSet.getInt("Duree"), resultSet.getInt("Taux")
                          ,resultSet.getString("Simulation"),resultSet.getDate("DateCreation"));
                  List.add(credit);
              }

@@ -5,6 +5,8 @@
   Time: 01:49
   To change this template use File | Settings | File Templates.
 --%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 
@@ -21,6 +23,8 @@
 
 
     <link href="../assets/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
     <style>
 
         .rangestyle {
@@ -111,7 +115,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="Dashboard.jsp">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Tableau de bord</span></a>
         </li>
@@ -240,7 +244,14 @@ background-color: #FFFFFF;
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;">
-
+                    <c:set var="mensualite" value="${requestScope.mensualites}" />
+                    <c:set var="montant" value="${requestScope.montant}" />
+                    <c:set var="taux" value="${requestScope.taux}" />
+                    <c:set var="duree" value="${requestScope.duree}" />
+                    <c:set var="cout_total" value="${requestScope.cout_total}" />
+                    <c:set var="nom" value="${requestScope.nom}"/>
+                    <c:set var="descr" value="${requestScope.descr}"/>
+         <form method="post" action="AjoutercriditServlet">
                     <div style="float: left;width: 100%;padding: 5px 20px;display: flex;justify-content: space-between">
                         <div style="float: left;width: 40%; padding: 5px 0px 0px 0px;
             margin: 5px 0;
@@ -258,7 +269,7 @@ background-color: #FFFFFF;
                         padding: 5px 3px;
                         width: 80%;
                         height: 37px;
-                        font-size: 13px;" type="text" class="parent simInput InitialRes" value="" id="nom">
+                        font-size: 13px;" type="text" name="nom" value="${nom}" class="parent simInput InitialRes" value="" >
 
                                 </div>
 
@@ -280,7 +291,7 @@ background-color: #FFFFFF;
                          border-radius: 5px;
                          padding: 5px 3px;
                          width: 100%;
-                         font-size: 16px;" rows="4"  name="text_desc">
+                         font-size: 16px;" rows="4" value="${descr}"   name="desc">
                          </textarea>
 
                                 </div>
@@ -314,7 +325,7 @@ background-color: #FFFFFF;
                         padding: 5px 3px;
                         width: 80%;
                         height: 37px;
-                        font-size: 13px;" type="number" class="parent simInput InitialRes" step="5000" min="0" max="5000000" value="0" id="montantInput">
+                        font-size: 13px;" type="number" value="${montant}" name="montant" class="parent simInput InitialRes" step="5000" min="0" max="5000000" value="0" id="montantInput">
                                         <span style="-webkit-text-size-adjust: 100%;
                         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
                         -webkit-font-smoothing: antialiased;
@@ -362,7 +373,7 @@ background-color: #FFFFFF;
                         padding: 5px 3px;
                         width: 80%;
                         height: 37px;
-                        font-size: 13px;" type="number" class="parent simInput InitialRes" step="1" min="0" max="30" value="0" id="interetInput">
+                        font-size: 13px;" type="number" name="taux" value="${taux}" class="parent simInput InitialRes" step="1" min="0" max="30" value="0" id="interetInput">
                                         <span style="-webkit-text-size-adjust: 100%;
                         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
                         -webkit-font-smoothing: antialiased;
@@ -410,7 +421,7 @@ background-color: #FFFFFF;
                         padding: 5px 3px;
                         width: 80%;
                         height: 37px;
-                        font-size: 13px;" type="number" class="parent simInput InitialRes" step="6" min="0" max="1000" value="0" id="moisInput">
+                        font-size: 13px;" type="number" name="duree" value="${duree}" class="parent simInput InitialRes" step="6" min="0" max="1000" value="0" id="moisInput">
                                         <span style="-webkit-text-size-adjust: 100%;
                         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
                         -webkit-font-smoothing: antialiased;
@@ -441,7 +452,7 @@ background-color: #FFFFFF;
 
                             </div>
                             <div style="text-align: center;">
-                                <button onclick="myfunc()" style="margin-top: 25px;width: 70%;border-color: #fff;border-radius: 5px;background-color: #ff4500;padding: 12px 20px; " id="button1">
+                                <button type="submit" style="margin-top: 25px;width: 70%;border-color: #fff;border-radius: 5px;background-color: #ff4500;padding: 12px 20px; " id="button1">
 
                                     <span style="font-size: 20px;color: #fff;">Simulation rapide</span>
                                 </button>
@@ -455,49 +466,57 @@ background-color: #FFFFFF;
 
                                 <div style="float: left;width: 40%;padding-left: 15px;color: #000;">MONTANT DU CRÉDIT</div>
                                 <div style="float: left;width: 50%;text-align: right;">
-                                    <span >0.00</span> DH
+                                    <span >${not empty montant?montant:'0.00'}</span> DH
                                 </div>
 
                             </div>
                             <div style="width: 100%; padding: 15px 0px; margin: 10px 0px;display: flex;justify-content: space-between;">
                                 <div style="float: left;width: 40%;padding-left: 15px; color: #000;">MENSUALITÉS</div>
                                 <div style="float: left;width: 50%;text-align: right;">
-                                    <span >0.00</span> DH
+                                    <span id="mensualite" >${not empty mensualite ? mensualite :'0.00' }</span> DH
                                 </div>
 
                             </div>
                             <div style="width: 100%; padding: 15px 0px; margin: 10px 0px;display: flex;justify-content: space-between;">
                                 <div style="float: left;width: 40%;padding-left: 15px;color: #000000;">TAUX HT</div>
                                 <div style="float: left;width: 50%;text-align: right;">
-                                    <span >0.00</span> %
+                                    <span >${not empty taux?taux:'0.00'}</span> %
                                 </div>
                             </div>
                             <div style="width: 100%; padding: 15px 0px; margin: 10px 0px;display: flex;justify-content: space-between;">
                                 <div style="float: left;width: 40%;padding-left: 15px; color: #000000;">DURÉE DU CRÉDIT</div>
                                 <div style="float: left;width: 50%;text-align: right;">
-                                    <span >0</span> Mois
+                                    <span  >${not empty duree ?duree:'0'}</span> Mois
                                 </div>
                             </div>
                             <div style="width: 100%; padding: 15px 0px; margin: 10px 0px;display: flex;justify-content: space-between;">
                                 <div style="float: left;width: 40%;padding-left: 15px;color: #000000;"><span>COÛT TOTAL DU CRÉDIT</span></div>
                                 <div style="float: left;width: 50%;text-align: right;">
-                                    <span >0.00</span> DH
+                                    <span >${not empty cout_total? cout_total:'0.00'}</span> DH
                                 </div>
 
                             </div>
-                            <div style="text-align: center;">
-                                <button style="margin-top: 50px;width: 300px;border-color: #fff;border-radius: 5px;background-color: #086600;padding: 12px 20px;display: none;" id="btn2">
 
-                                    <span style="font-size: 20px;color: #fff;">Sauvgarder</span>
-                                </button>
-                            </div>
 
                         </div>
 
                     </div>
+</form>
+                    <div style="text-align: center;">
+                        <c:if test="${not empty sucess}">
 
+
+
+
+                                <button onclick="myfunc()" style="margin-top: 50px;width: 300px;border-color: #fff;border-radius: 5px;background-color: #086600;padding: 12px 20px; display: none" id="btn2" >
+
+                                <span style="font-size: 20px;color: #fff;">Sauvgarder</span>
+                                </button>
+
+                        </c:if>
+
+                    </div>
                 </div>
-
 
         </div>
         <!-- End of Main Content -->
@@ -519,9 +538,40 @@ background-color: #FFFFFF;
 </div>
 
 <script>
-    function myfunc(){
-        document.getElementById("btn2").style.display = "block";
+    function myfunc() {
+        var montant = $('input[name="montant"]').val();
+        var nom = $('input[name="nom"]').val();
+        var descr = $('input[name="desc"]').val();
+
+        var taux = $('input[name="taux"]').val();
+        var duree = $('input[name="duree"]').val();
+        var mensualite = $('#mensualite').text();
+
+
+        $.ajax({
+            type: "POST",
+            url: "AjouterCreditServlet",
+            data: {
+                montant: montant1,
+                taux: taux1,
+                duree: duree1,
+                mensualite:mensualite,
+                nom:nom,
+                descr:descr
+
+            },
+            success: function(response){
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Handle the error
+            }
+        });
     }
+
+
+
+
     var r1 = document.getElementById("montantRange");
     var inp1 = document.getElementById("montantInput");
     var r2 = document.getElementById("interetRange");
