@@ -35,7 +35,7 @@ public class AjoutercriditServlet extends HttpServlet {
         int iduser = (int) session.getAttribute("iduser");
         Credit credit = new Credit();
         credit.setNom((String) request.getParameter("nom"));
-        credit.setDescription((String) request.getParameter("descr"));
+        credit.setDescription((String) request.getParameter("desc"));
         credit.setDuree((Integer) request.getAttribute("duree"));
         credit.setMontant((Integer) request.getAttribute("montant"));
         credit.setSimulation(String.valueOf( mensualites)+"DH");
